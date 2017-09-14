@@ -95,9 +95,23 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-
-
-
+/* PAGE COMMENTAIRES */
+.com {
+    background-color: red;
+    width: 50%;
+    margin: auto;
+}
+.article {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 65%;
+    margin: auto;
+    margin-top: 2em;
+    text-align: center;
+}
+.retour {
+    margin-left: 4em;
+}
 
 
 
