@@ -9,6 +9,8 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
+    	<h1>Blog du <br>développeur</h1>
+<section id="main">
 <?php
 
 try //Connexion a la base de donnees
@@ -19,20 +21,13 @@ catch(Exception $e)
 {
         die('Erreur : '.$e->getMessage());
 }
-?>
 
-<form method="post" action="index.php">
-	<label>Titre : </label><input type="varchar" name="titre">
-	<label>Article : </label><input type="text" name="contenu">
-	<input type="submit">
-</form>
-<?php
 if(!empty($_POST['titre']) && !empty($_POST['contenu'])){
 
 $titre = htmlspecialchars($_POST['titre']);
 $contenu = htmlspecialchars($_POST['contenu']);
 
-	$req = $bdd -> prepare('INSERT INTO billets (id, titre, contenu, date_creation) VALUES ("", :titre, :contenu, "")');
+	$req = $bdd -> prepare('INSERT INTO billets (id, titre, contenu, date_creation, nb_commentaires) VALUES ("", :titre, :contenu, "", 0)');
 	$req -> execute(array('titre' => $titre,
 							'contenu' => $contenu
 		));
@@ -43,12 +38,22 @@ $articles = $bdd -> query('SELECT * FROM billets ORDER BY id DESC LIMIT 0, 5');
 // On affiche les titres et le contenu des articles
 	foreach ($articles as $key => $value) {
 
-		?>
+		?><article class="billet">
 		<h3><?php echo $value['titre'];?></h3>
 		<p><?php echo $value['contenu'];?></p>
-		<a href="commentaires.php?valId=<?php echo $value['id']; ?>">Commentaires</a><br><br>
+		<a href="commentaires.php?valId=<?php echo $value['id']; ?>">Commentaires (<?php echo $value['nb_commentaires'];?>)</a><br><br>
+		</article>
 		<?php 
 	}
 ?>
+	<article id="post">
+	<h4>Rédiger un article</h4>
+		<form method="post" action="index.php">
+			<input type="varchar" name="titre" placeholder="Titre de l'article"><br>
+			<input type="text" name="contenu" id="msg" placeholder="Contenu">
+			<input type="submit" id="go">
+		</form>
+	</article>
+</section>
    </body>
 </html>

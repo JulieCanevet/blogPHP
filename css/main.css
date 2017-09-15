@@ -94,31 +94,74 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+body {
+    background-image: url(../img/building_mirror.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+h1 {
+    letter-spacing: .5em;
+    color: white;
+    font-size: 3em;
+    margin: 2em auto 2em 10%;
+}
+h3 {
+    letter-spacing: .3em;
+}
+#main {
+    width: 80%;
+    margin: auto;
+    background-color: #8CC9C4E3;
+    margin: 3em auto 3em auto;
+    padding-top: 1em;
+}
+.billet {
+    width: 85%;
+    margin: auto;
+}
+#post {
+    text-align: left;
+    margin-left: 3em;
+}
+
+#main input {
+    margin-bottom: 1em;
+}
+#msg {
+    height: 80px;
+    width: 250px;
+}
 
 /* PAGE COMMENTAIRES */
+#commentaire {
+    background-color: #949FB3be;
+    width: 80%;
+    border-radius: 10px;
+    padding: 1.5em;
+    margin: 2em auto 2em auto;
+}
 .com {
-    background-color: red;
-    width: 50%;
+    width: 70%;
     margin: auto;
 }
 .article {
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 65%;
+    border-radius: 10px;
+    padding: 1em;
+    width: 85%;
     margin: auto;
-    margin-top: 2em;
+    background-color: #949FB3;
     text-align: center;
 }
 .retour {
-    margin-left: 4em;
+    text-align: center;
 }
 
-
-
-
-
-
-
+#commentaire input {
+    margin: .5em;
+}
+#commentaire a {
+    margin: 1em;
+}
 
 
 

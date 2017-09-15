@@ -9,6 +9,7 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
+    	<section id="commentaire">
 <?php
 
 try //Connexion a la base de donnees
@@ -19,8 +20,6 @@ catch(Exception $e)
 {
         die('Erreur : '.$e->getMessage());
 }
-
-
 
 // AJOUT D'UN COMMENTAIRE
 // on verifie que les champs soient remplis et on les securise
@@ -33,6 +32,11 @@ if(!empty($_POST['auteur']) && !empty($_POST['commentaire'])){
 	$req -> execute(array('id_billet' => $_GET['valId'],
 							'auteur' => $_POST['auteur'],
 							'commentaire' => $_POST['commentaire']
+		));
+	
+	// mise a jour du champs nb_commentaires
+	$req = $bdd -> prepare('UPDATE billets SET nb_commentaires=nb_commentaires+1 WHERE id = :id');
+	$req -> execute(array ('id' => $_GET['valId']
 		));
 }
 
@@ -59,9 +63,9 @@ if ($_GET['valId']){
 		}
 		//affiche les commentaires cibles
 		foreach ($commentaires as $key => $value) {?><div class="com"><?php
-			echo $value['auteur'] . ' : (à ' . $value['date_commentaire'] . ')'?><br><?php
-			echo $value['commentaire'];?></div><br><?php
-		}?><br><a href="index.php" class="retour">Retour</a><?php
+			echo (htmlspecialchars($value['auteur'])) . ' : (à ' . $value['date_commentaire'] . ')'?><br><?php
+			echo (htmlspecialchars($value['commentaire']));?></div><hr><br><?php
+		}?><br><?php
 	}	
 }	
 	else {
@@ -70,11 +74,13 @@ if ($_GET['valId']){
 ?>
 
 <!-- creation du formulaire pour commentaires -->
-<form method="post" action="commentaires.php?valId=<?= $_GET['valId'];?>">
-	<label>Auteur : </label><input type="varchar" name="auteur">
-	<label>Commentaire : </label><input type="text" name="commentaire">
-	<input type="submit">
-</form>
-
+			<h4>Rédiger un commentaire</h4>
+			<form method="post" action="commentaires.php?valId=<?= $_GET['valId'];?>">
+				<label>Auteur : </label><input type="varchar" name="auteur">
+				<label>Commentaire : </label><input type="text" name="commentaire">
+				<input type="submit">
+			</form>
+			<a href="index.php" class="retour">Retour</a>
+		</section>
     </body>
 </html>
